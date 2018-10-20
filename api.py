@@ -82,8 +82,25 @@ def create_plan():
     return jsonify({'message': 'new plan created'})
 
 @app.route('/plan/<plan_id>', methods=['PUT'])
-def update_plan():
-    return ''
+def update_plan(plan_id):
+    plan = Plan.query.filter_by(id=plan_id).first()
+    data = request.get_json() #the incoming data in json
+
+    plan.MonthStartDate = data['MonthStartDate']
+    plan.DayStartDate=data['DayStartDate']
+    plan.MonthEndDate=data['MonthEndDate']
+    plan.DayEndDate=data['DayEndDate']
+    plan.Resources=data['Resources']
+    plan.idHeadMember=data['idHeadMember']
+    plan.Publish=data['Publish']
+    plan.Description=data['Description']
+
+    if not plan:
+        return jsonify({'message':'no plan found'})
+
+    db.session.commit()
+    
+    return jsonify({'message':'updated info'})
 
 @app.route('/plan/<plan_id>', methods=['DELETE'])
 def delete_plan():
