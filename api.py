@@ -103,8 +103,16 @@ def update_plan(plan_id):
     return jsonify({'message':'updated info'})
 
 @app.route('/plan/<plan_id>', methods=['DELETE'])
-def delete_plan():
-    return ''
+def delete_plan(plan_id):
+    plan = Plan.query.filter_by(id=plan_id).first()
+
+    if not plan:
+        return jsonify({'message':'no plan found'})
+
+    db.session.delete(plan)
+    db.session.commit()
+
+    return jsonify({'message':'the plan has been deleted'})
 
 if __name__=='__main__':
     app.run(debug=True)
