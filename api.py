@@ -7,7 +7,7 @@ from flask import jsonify
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:passwordNICO343@localhost/planAPI'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:passwordNICO343@localhost/planAPI' #database connection
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
@@ -28,7 +28,7 @@ class Plan(db.Model):
     Publish = db.Column(db.String(200))
     Description = db.Column(db.String(500))
 
-@app.route('/plan', methods=['GET'])
+@app.route('/plan', methods=['GET']) #get all the plans
 def get_plans():
     plans = Plan.query.all()
     output = []
@@ -48,7 +48,7 @@ def get_plans():
 
     return jsonify(output)
 
-@app.route('/plan/<plan_id>', methods=['GET'])
+@app.route('/plan/<plan_id>', methods=['GET'])# get just one of the plan with the given id
 def get_one_plan(plan_id):
     plan = Plan.query.filter_by(id=plan_id).first()
 
@@ -70,7 +70,7 @@ def get_one_plan(plan_id):
 
     return jsonify(output)
 
-@app.route('/plan',methods=['POST'])
+@app.route('/plan',methods=['POST']) # create a new plan register in the db
 def create_plan():
     data = request.get_json() #the incoming data in json
     new_plan = Plan(MonthStartDate=data['MonthStartDate'],DayStartDate=data['DayStartDate']
@@ -81,7 +81,7 @@ def create_plan():
 
     return jsonify({'message': 'new plan created'})
 
-@app.route('/plan/<plan_id>', methods=['PUT'])
+@app.route('/plan/<plan_id>', methods=['PUT']) # update the plan with the corresponding id given
 def update_plan(plan_id):
     plan = Plan.query.filter_by(id=plan_id).first()
     data = request.get_json() #the incoming data in json
@@ -102,7 +102,7 @@ def update_plan(plan_id):
     
     return jsonify({'message':'updated info'})
 
-@app.route('/plan/<plan_id>', methods=['DELETE'])
+@app.route('/plan/<plan_id>', methods=['DELETE']) # delete the given plan
 def delete_plan(plan_id):
     plan = Plan.query.filter_by(id=plan_id).first()
 
