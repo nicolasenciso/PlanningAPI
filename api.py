@@ -7,8 +7,8 @@ from flask import jsonify
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:passwordNICO343@localhost/planAPI' #database connection
-app.config['SQLALCHEMY_ECHO'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@planning-db/planning' #database connection
+app.config['SQLALCHEMY_ECHO'] = False       
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
@@ -115,5 +115,5 @@ def delete_plan(plan_id):
     return jsonify({'message':'the plan has been deleted'})
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run( port=3002)
     manager.run()
