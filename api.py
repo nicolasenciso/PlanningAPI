@@ -7,7 +7,7 @@ from flask import jsonify
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@planning-db/planning' #database connection
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@planning-db:3306/planning' #database connection
 app.config['SQLALCHEMY_ECHO'] = False       
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
