@@ -11,3 +11,5 @@ RUN pip install -r requirements.txt
 COPY . .
 
 CMD ["python", "api.py"]
+
+EXPOSE 3002
