@@ -115,5 +115,5 @@ def delete_plan(plan_id):
     return jsonify({'message':'the plan has been deleted'})
 
 if __name__=='__main__':
-    app.run( port=3002)
+    app.run( port=3002, host= '0.0.0.0')
     manager.run()
