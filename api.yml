@@ -1,0 +1,242 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservice for Planning
+  description: Python + MySQL
+  license:
+    name: Software Architecture 2018-II 
+host: 0.0.0.0:3002
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /plan:
+    post:
+      summary: Creates a new plan
+      operationId: createPlan
+      parameters:
+        - name: plan
+          in: body
+          required: true
+          description: Plan Object
+          schema:
+            $ref: '#/definitions/PlanInput'
+      responses:
+        '200':
+          description: new plan created
+          schema:
+            $ref: '#/definitions/Plan'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Response'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Response'
+    get:
+      summary: Returns all plans
+      operationId: getAllPlans
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/PlansList'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Response'
+
+  /plan/{code}:
+    get:
+      summary: Returns a plan with the given code
+      operationId: getPlanByCode
+      parameters:
+        - name: code
+          in: path
+          description: The code of the plan to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Plan'
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable (Invalid Params)
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Response'
+
+    put:
+      summary: Updates data of a plan with the given code
+      operationId: updateProject
+      parameters:
+        - name: code
+          in: path
+          description: The code of the plan to be updated
+          required: true
+          type: integer
+        - name: plan
+          in: body
+          required: true
+          description: Plan Object
+          schema:
+            $ref: '#/definitions/PlanInput'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Plan'
+        '404':
+          description: Not Found
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Response'
+
+    delete:
+      summary: Deletes a plan with the given code
+      operationId: deletePlan
+      parameters:
+        - name: code
+          in: path
+          description: The code of the plan to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: integer
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable (Invalid Params)
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Response'
+
+definitions:
+
+  Plan:
+    type: object
+    properties:
+      DayEndDate:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 31
+        
+      DayStartDate:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 31
+        
+      Description:
+        type: string
+        
+      MonthEndDate:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 12
+        
+      MonthStartDate:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 12
+        
+      Publish:
+        type: string
+        
+      Resources:
+        type: number
+        format: int32
+        
+      id:
+        type: integer
+        
+      idHeadMember:
+        type: integer
+
+        
+  PlanInput:
+    type: object
+    properties:
+      DayEndDate:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 31
+        
+      DayStartDate:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 31
+        
+      Description:
+        type: string
+        
+      MonthEndDate:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 12
+        
+      MonthStartDate:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 12
+        
+      Publish:
+        type: string
+        
+      Resources:
+        type: number
+        format: int32
+        
+      id:
+        type: integer
+        
+      idHeadMember:
+        type: integer
+
+  
+  PlansList:
+    type: object
+    required:
+      - list
+    properties:
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/Plan'
+          
+  Response:
+    type: object
+    properties:
+      status:
+        type: integer
+      description:
+        type: string
+      body:
+        type: string #usualmente es la id
+        
+        
+        
+        
+        
+        
