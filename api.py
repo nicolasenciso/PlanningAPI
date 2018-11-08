@@ -79,7 +79,7 @@ def create_plan():
     db.session.add(new_plan)
     db.session.commit()
 
-    return jsonify({'message': 'new plan created'})
+    return jsonify(data)
 
 @app.route('/plan/<plan_id>', methods=['PUT']) # update the plan with the corresponding id given
 def update_plan(plan_id):
