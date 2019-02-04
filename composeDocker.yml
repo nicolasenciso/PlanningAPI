@@ -10,7 +10,7 @@ services:
     ports:
       - 4002:3306
   planning-ms:
-    image: nricardoe/planning-ms
+    image: nricardoe/sa-planning-ms
     ports:
       - 3002:3002
     depends_on:
