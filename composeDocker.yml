@@ -1,0 +1,17 @@
+version: '2'
+services:
+  planning-db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: planning
+      MYSQL_PASSWORD: '1234'
+      MYSQL_ROOT_PASSWORD: '1234'
+      MYSQL_USER: planningUser
+    ports:
+      - 4002:3306
+  planning-ms:
+    image: nricardoe/planning-ms
+    ports:
+      - 3002:3002
+    depends_on:
+      - planning-db
