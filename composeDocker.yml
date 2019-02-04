@@ -9,6 +9,8 @@ services:
       MYSQL_USER: planningUser
     ports:
       - 4002:3306
+    labels:
+      io.rancher.scheduler.affinity:host_label: key1=par1
   planning-ms:
     image: nricardoe/sa-planning-ms
     ports:
