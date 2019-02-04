@@ -15,3 +15,5 @@ services:
       - 3002:3002
     depends_on:
       - planning-db
+    labels:
+      io.rancher.scheduler.affinity:host_label: key1=par1
